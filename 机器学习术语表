@@ -88,3 +88,73 @@ Fastbook 第一章到第五章 简洁术语表
 
    - 定义：保持预训练模型某些层模型参数不变，只训练举固层。
    - 应用：提升训练速度，保持高比量上的评分。
+
+
+
+
+第七章：迁移学习（Transfer Learning）
+核心概念：
+
+迁移学习：利用在大数据集（如 ImageNet）上预训练的模型，加速和优化新任务的学习。
+
+FastAI 的 cnn_learner() 可快速加载预训练模型并开始训练。
+
+主要步骤：
+
+使用 cnn_learner() 创建模型：
+learn = cnn_learner(dls, resnet34, metrics=accuracy)
+
+冻结模型，只训练最后几层：
+learn.fine_tune(epochs)
+
+解冻模型，微调全部层（可选）：
+learn.unfreeze()
+
+关键技术点：
+
+freeze / unfreeze（冻结与解冻）
+
+学习率查找器（lr_find）
+
+分层学习率（differential learning rates）
+
+
+
+
+
+第八章：推荐系统（Collaborative Filtering）
+核心概念：
+
+协同过滤：通过用户与物品的交互（如评分）来预测兴趣。
+
+使用 CollabDataLoaders 和 collab_learner 构建模型。
+
+主要步骤：
+
+加载数据：
+dls = CollabDataLoaders.from_df(ratings, item_name='title')
+
+创建模型：
+learn = collab_learner(dls, y_range=(0, 5.5))
+
+训练模型：
+learn.fit_one_cycle(5, 5e-3)
+
+关键概念：
+
+嵌入（Embedding）：将用户和物品表示为向量。
+
+潜在因子（Latent Factors）：模型自动学习的用户/物品特征。
+
+MSE Loss：用于评分预测的回归损失函数。
+
+PCA 可视化：用主成分分析降维并可视化物品之间的相似性。
+
+进阶内容：
+
+将嵌入向量拼接后输入神经网络替代点积。
+
+使用正则化防止过拟合。
+
+
+
