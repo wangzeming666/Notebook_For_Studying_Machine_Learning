@@ -157,4 +157,61 @@ PCA 可视化：用主成分分析降维并可视化物品之间的相似性。
 使用正则化防止过拟合。
 
 
+第9章
+核心概念
+Tabular 数据
 
+指以行和列表示的数据，如 CSV 文件、数据库表格。
+
+特征可以是 数值型（continuous） 或 类别型（categorical）。
+
+嵌入（Embedding）用于类别变量
+
+类似第8章的用户/电影嵌入。
+
+每个类别（如“星期几”、“城市名”）被映射为一个向量。
+
+模型会自动学习每个类别的语义特征。
+
+处理数值变量
+
+数值型特征通常会进行标准化（normalization），以帮助模型更快收敛。
+
+模型结构：TabularModel
+
+将所有嵌入向量与数值变量连接（concatenate）成一个大向量，输入到全连接神经网络中。
+
+网络结构：输入层 → 若干隐藏层（可带 Dropout）→ 输出层（用于分类或回归）
+
+损失函数选择
+
+分类任务使用交叉熵损失（CrossEntropyLoss）
+
+回归任务使用均方误差（MSELoss）
+
+评估指标
+
+分类：准确率（Accuracy）
+
+回归：均方误差、平均绝对误差等
+
+模型解释：特征重要性 & Embedding 可视化
+
+可以通过可视化嵌入向量，观察模型是否学到了时间结构等有意义的信息。
+
+
+中文术语  英文术语  说明
+表格数据  Tabular data  包括数值型和类别型特征的数据表
+类别变量  Categorical variable  有固定取值的变量，如性别、城市名
+数值变量  Continuous variable 可以连续取值的变量，如年龄、收入
+嵌入      Embedding 用向量表示类别变量
+标准化 Normalization 将数值变量调整为均值为0，方差为1
+拼接  Concatenation 将多个张量连接成一个向量
+全连接层  Fully Connected Layer 神经网络中的基本层结构
+激活函数  Activation Function 如 ReLU，用于非线性变换
+丢弃法（防过拟合） Dropout 正则化方法，随机丢弃部分神经元
+回归  Regression  预测连续值的任务
+分类  Classification  预测类别的任务
+损失函数  Loss Function 评估模型预测结果与真实值的差距
+准确率 Accuracy  分类常用评估指标
+可视化 Visualization 可视化嵌入向量或特征的重要性
